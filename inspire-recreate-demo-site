@@ -82,23 +82,17 @@ sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/inveniocfg --reset-all --yes-i
 # load INSPIRE demo site:
 echo "TRUNCATE schTASK" | $CFG_INVENIO_PREFIX/bin/dbexec
 cd bibconvert
-make get-small
-make convert-small
-sudo -u $CFG_INVENIO_USER make upload-small
-make get-inst
-make convert-inst
-sudo -u $CFG_INVENIO_USER make upload-inst
-cd ..
+sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibupload -ir demo-records.xml
 sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibupload 1
-sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibupload 2
 sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibindex -u admin
-sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibindex 3
+sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibindex 2
 sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibreformat -u admin -o HB
-sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibreformat 4
+sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibreformat 3
 sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/webcoll -u admin
-sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/webcoll 5
+sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/webcoll 4
 sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibrank -u admin
-sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibrank 6
+sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/bibrank 5
+cd ..
 
 # restart Invenio WSGI app:
 sudo -u $CFG_INVENIO_USER touch $CFG_INVENIO_PREFIX/var/www-wsgi/invenio.wsgi
